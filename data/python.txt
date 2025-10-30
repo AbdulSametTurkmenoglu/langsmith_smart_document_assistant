@@ -1,0 +1,12 @@
+Python Programlama Dili Hakkında
+
+Python, 1991 yılında Guido van Rossum tarafından geliştirilmiş yüksek seviyeli bir programlama dilidir.
+Sözdizimi basit ve okunabilir olması, Python'u öğrenmesi kolay bir dil yapar.
+
+Python'un başlıca kullanım alanları:
+- Web geliştirme (Django, Flask)
+- Veri bilimi ve analizi (Pandas, NumPy)
+- Yapay zeka ve makine öğrenmesi (TensorFlow, PyTorch)
+- Otomasyon ve scripting
+
+Python yorumlamalı bir dildir ve dinamik tip sistemi kullanır.

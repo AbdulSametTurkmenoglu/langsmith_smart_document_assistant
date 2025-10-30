@@ -1,0 +1,11 @@
+Makine Öğrenmesi Temelleri
+
+Makine öğrenmesi, bilgisayarların açık programlama olmadan öğrenmesini sağlayan yapay zeka dalıdır.
+
+Üç ana makine öğrenmesi türü vardır:
+1. Gözetimli Öğrenme: Etiketli veri ile eğitim
+2. Gözetimsiz Öğrenme: Etiketlenmemiş veri ile pattern bulma
+3. Pekiştirmeli Öğrenme: Deneme yanılma ile öğrenme
+
+Popüler algoritmalar arasında lineer regresyon, decision trees, neural networks bulunur.
+Python, makine öğrenmesi için en popüler dildir.
