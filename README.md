@@ -1,86 +1,85 @@
-# LangSmith ile Akıllı Doküman Asistanı (RAG)
+# Intelligent Document Assistant with LangSmith (RAG)
 
-Bu proje, LangChain, OpenAI ve ChromaDB kullanarak bir RAG (Retrieval-Augmented Generation) sistemi oluşturur ve tüm süreci izlemek, debug etmek ve değerlendirmek için **LangSmith**'i kullanır.
+This project creates a RAG (Retrieval-Augmented Generation) system using LangChain, OpenAI, and ChromaDB, and utilizes **LangSmith** to trace, debug, and evaluate the entire process.
 
-Asistan, `data/` klasöründeki metin dosyalarını okur, bunları vektörlere dönüştürür ve kullanıcı sorularını bu dokümanlara dayanarak cevaplar.
+The assistant reads text files from the `data/` folder, converts them into vectors, and answers user questions based on these documents.
 
-##  Özellikler
+## Features
 
-* **RAG Mimarisi:** Dokümanlardan bağlam (context) alarak cevap üreten sistem.
-* **LangSmith Entegrasyonu:**
-    * `@traceable` decorator'ları ile tüm adımlar (doküman yükleme, chain kurulumu, soru sorma) izlenir.
-    * Token kullanımı, maliyet ve gecikme süreleri otomatik olarak takip edilir.
-    * **Feedback Toplama:** Her soru-cevap çiftine `user_rating` (0 veya 1) ile puan verme ve bu puanları LangSmith arayüzünde görme.
-* **Modüler Yapı:** Veri, konfigürasyon, prompt'lar ve ana mantık `src/` klasöründe ayrılmıştır.
-* **İki Çalıştırma Modu:**
-    1.  `run_demo.py`: Önceden tanımlanmış sorularla bir demo çalıştırır ve otomatik (simüle edilmiş) feedback gönderir.
-    2.  `chat.py`: Asistanla interaktif sohbet etmenizi ve her cevaba manuel olarak (e/h) feedback vermenizi sağlar.
+* **RAG Architecture:** System that generates answers by retrieving context from documents.
+* **LangSmith Integration:**
+    * All steps (document loading, chain setup, question asking) are traced with `@traceable` decorators.
+    * Token usage, cost, and latency are automatically tracked.
+    * **Feedback Collection:** Rating each question-answer pair with `user_rating` (0 or 1) and viewing these scores in the LangSmith interface.
+* **Modular Structure:** Data, configuration, prompts, and main logic are separated in the `src/` folder.
+* **Two Execution Modes:**
+    1. `run_demo.py`: Runs a demo with predefined questions and sends automatic (simulated) feedback.
+    2. `chat.py`: Allows you to interactively chat with the assistant and manually provide feedback (y/n) for each answer.
 
+## Installation
 
-##  Kurulum
+1. **Clone the Repository:**
+```bash
+    git clone https://github.com/AbdulSametTurkmenoglu/langsmith_smart_document_assistant.git
+    cd langsmith_smart_document_assistant
+```
 
-1.  **Depoyu Klonlama:**
-    ```bash
-    git clone [https://github.com/AbdulSametTurkmenoglu/lang_smith_akilli_dokuman_asistani.git](https://github.com/AbdulSametTurkmenoglu/lang_smith_akilli_dokuman_asistani.git)
-    cd lang_smith_akilli_dokuman_asistani
-    ```
-
-2.  **Sanal Ortam (Önerilir):**
-    ```bash
+2. **Virtual Environment (Recommended):**
+```bash
     python -m venv .venv
     # Windows: .\.venv\Scripts\activate
     # macOS/Linux: source .venv/bin/activate
-    ```
+```
 
-3.  **Gerekli Kütüphaneleri Yükleme:**
-    ```bash
+3. **Install Required Libraries:**
+```bash
     pip install -r requirements.txt
-    ```
+```
 
-4.  **.env Dosyasını Oluşturma:**
-    `.env.example` dosyasını kopyalayıp `.env` olarak adlandırın ve içini kendi API anahtarlarınızla doldurun:
-    ```bash
+4. **Create .env File:**
+    Copy the `.env.example` file, rename it to `.env`, and fill it with your own API keys:
+```bash
     # Windows
     copy .env.example .env
     
     # macOS / Linux
     cp .env.example .env
-    ```
-    `.env` dosyasının içeriği:
-    ```
+```
+    
+    Contents of the `.env` file:
+```
     OPENAI_API_KEY="sk-..."
     LANGSMITH_API_KEY="..."
-    LANGSMITH_PROJECT="Akilli Dokuman Asistani" # LangSmith'te görünecek proje adı
-    ```
+    LANGSMITH_PROJECT="Intelligent Document Assistant" # Project name to appear in LangSmith
+```
 
-##  Kullanım
+## Usage
 
-İki farklı modda çalıştırabilirsiniz:
+You can run it in two different modes:
 
-### 1. Demo Modu (`run_demo.py`)
+### 1. Demo Mode (`run_demo.py`)
 
-Bu script, `data/` klasöründeki dokümanları yükler, `questions` listesindeki soruları sırayla sorar ve her cevap için otomatik olarak (simüle edilmiş) bir puanı (0 veya 1) LangSmith'e gönderir.
-
+This script loads documents from the `data/` folder, asks questions from the `questions` list sequentially, and automatically sends a (simulated) score (0 or 1) to LangSmith for each answer.
 ```bash
 python run_demo.py
 ```
-Bu modu çalıştırdıktan sonra LangSmith arayüzüne giderek projeniz altındaki "Ask Question" run'larını ve onlara bağlı "user_rating" skorlarını görebilirsiniz.
 
-### 2. İnteraktif Sohbet Modu (`chat.py`)
+After running this mode, you can go to the LangSmith interface to see the "Ask Question" runs under your project and their associated "user_rating" scores.
 
-Bu script, asistanla gerçek zamanlı sohbet etmenizi sağlar. Her cevaptan sonra size "Yardımcı oldu mu? (e/h)" diye sorar ve cevabınıza göre (1.0 veya 0.0) puanı LangSmith'e kaydeder.
+### 2. Interactive Chat Mode (`chat.py`)
 
+This script allows you to chat with the assistant in real-time. After each answer, it asks you "Was this helpful? (y/n)" and saves the score (1.0 or 0.0) to LangSmith based on your response.
 ```bash
 python chat.py
 ```
 ```
- Asistan hazır. Sorularınızı sorabilirsiniz.
+ Assistant is ready. You can ask your questions.
 ------------------------------------------------------------
- Soru: LangSmith nedir?
- Cevap: LangSmith, LangChain uygulamalarını izlemek ve debug etmek için kullanılan bir araçtır. Her chain çağrısı, token kullanımı ve hatalar LangSmith'te görülebilir.
-  Süre: 1.23s
-  3 kaynak kullanıldı
-   Cevap yardımcı oldu mu? (e/h/enter=geç): e
-   LangSmith Feedback eklendi (Puan: 1.0)
- Soru: 
+ Question: What is LangSmith?
+ Answer: LangSmith is a tool used to trace and debug LangChain applications. Every chain call, token usage, and errors can be viewed in LangSmith.
+  Duration: 1.23s
+  3 sources used
+   Was the answer helpful? (y/n/enter=skip): y
+   LangSmith Feedback added (Score: 1.0)
+ Question: 
 ```
